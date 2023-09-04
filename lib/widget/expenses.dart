@@ -41,16 +41,27 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Text(' The chart'),
-          // As ListView is present inside this Column Widget
-          // Expanded is used to resolve this ambiguity of size
-          Expanded(
-            child: ExpensesList(expenses: _registeredExpenses),
-          ),
-        ],
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
+      home: Scaffold(
+        appBar: AppBar(
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.add),
+            )
+          ],
+        ),
+        body: Column(
+          children: [
+            Text(' The chart'),
+            // As ListView is present inside this Column Widget
+            // Expanded is used to resolve this ambiguity of size
+            Expanded(
+              child: ExpensesList(expenses: _registeredExpenses),
+            ),
+          ],
+        ),
       ),
     );
   }
