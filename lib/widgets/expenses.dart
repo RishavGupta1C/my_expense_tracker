@@ -45,9 +45,14 @@ class _ExpensesState extends State<Expenses> {
     // context object is automatically created inside State class
     // ctx is context of modalBottomSheet
     showModalBottomSheet(
+      // useSafeSpace: true,
       isScrollControlled: true,
       context: context,
-      builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+      builder: (ctx) {
+        return NewExpense(
+          onAddExpense: _addExpense,
+        );
+      },
     );
   }
 
@@ -84,6 +89,9 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    // final height = MediaQuery.of(context).size.height;
+
     Widget mainContent = const Center(
       child: Text('No Expenses Found, Start Adding Some!'),
     );
@@ -97,6 +105,7 @@ class _ExpensesState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
+        // centerTitle: false, // for iOS
         title: const Text('Flutter Expense Tracker'),
         actions: [
           IconButton(
@@ -105,16 +114,31 @@ class _ExpensesState extends State<Expenses> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Chart(expenses: _registeredExpenses),
-          // As ListView is present inside this Column Widget
-          // Expanded is used to resolve this ambiguity of size
-          Expanded(
-            child: mainContent,
-          ),
-        ],
-      ),
+      body: width < 600
+          ? Column(
+              children: [
+                Chart(expenses: _registeredExpenses),
+                // As ListView is present inside this Column Widget
+                // Expanded is used to resolve this ambiguity of size
+                Expanded(
+                  child: mainContent,
+                ),
+              ],
+            )
+          : Row(
+              children: [
+                // Expanded provides a height and width constraint
+                // So we need to wrap unconstrained widgets to expanded
+                Expanded(
+                  child: Chart(expenses: _registeredExpenses),
+                ),
+                // As ListView is present inside this Column Widget
+                // Expanded is used to resolve this ambiguity of size
+                Expanded(
+                  child: mainContent,
+                ),
+              ],
+            ),
     );
   }
 }

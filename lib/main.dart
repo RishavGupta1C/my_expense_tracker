@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_expense_tracker/widgets/expenses.dart';
+// import 'package:flutter/services.dart';
 
 // 'k' is used for Global Variables Representation
 var kColorScheme = ColorScheme.fromSeed(
@@ -12,6 +13,11 @@ var kDarkColorScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // Commented Code is to lock the orientation to portrait
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [DeviceOrientation.portraitUp],
+  // ).then((fn) {
   runApp(MaterialApp(
     darkTheme: ThemeData.dark().copyWith(
       colorScheme: kDarkColorScheme,
@@ -68,4 +74,5 @@ void main() {
     themeMode: ThemeMode.system,
     home: const Expenses(),
   ));
+  // });   // SystemChrome
 }
