@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_expense_tracker/widget/expenses.dart';
+import 'package:my_expense_tracker/widgets/expenses.dart';
 
 // 'k' is used for Global Variables Representation
 var kColorScheme = ColorScheme.fromSeed(
