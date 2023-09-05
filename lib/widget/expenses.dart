@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_expense_tracker/widget/expenses_list/expenses_list.dart';
 import 'package:my_expense_tracker/models/expense.dart';
+import 'package:my_expense_tracker/widget/new_expense.dart';
 
 class Expenses extends StatefulWidget {
   const Expenses({Key? key}) : super(key: key);
@@ -39,29 +40,36 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpenseOverlay() {
+    // context object is automatically created inside State class
+    // ctx is context of modalBottomSheet
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) => NewExpense(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.add),
-            )
-          ],
-        ),
-        body: Column(
-          children: [
-            Text(' The chart'),
-            // As ListView is present inside this Column Widget
-            // Expanded is used to resolve this ambiguity of size
-            Expanded(
-              child: ExpensesList(expenses: _registeredExpenses),
-            ),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Expense Tracker'),
+        actions: [
+          IconButton(
+            onPressed: _openAddExpenseOverlay,
+            icon: Icon(Icons.add),
+          )
+        ],
+      ),
+      body: Column(
+        children: [
+          Text(' The chart'),
+          // As ListView is present inside this Column Widget
+          // Expanded is used to resolve this ambiguity of size
+          Expanded(
+            child: ExpensesList(expenses: _registeredExpenses),
+          ),
+        ],
       ),
     );
   }
